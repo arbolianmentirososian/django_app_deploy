@@ -13,8 +13,8 @@ cover/
 # virtual environments
 venv/
 
-# unit tests reports
-test/*.xml
+# test files and reports
+test/
 htmlcov/
 .tox/
 .nox/
@@ -31,14 +31,20 @@ nosetests.xml
 # directory with files generated with pytest cache plugin 
 .pytest_cache/
 
-# git directory
+# git directory and gitignore file
 .git/
+.gitignore
 
 # documentation
 docs/
 
-# scripts used with Jenkins
+# scripts used by Jenkins
 ci-build.sh
 generate_docs.sh
 regression-tests.sh
 vulnerability-tests.sh
+
+# settings and properties used in development process only
+README.md
+Jenkinsfile
+pytest.ini

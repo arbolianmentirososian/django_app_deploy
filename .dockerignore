@@ -48,3 +48,5 @@ vulnerability-tests.sh
 README.md
 Jenkinsfile
 pytest.ini
+Dockerfile
+.dockerignore

@@ -14,7 +14,7 @@ pipeline {
                     COMMIT_HASH = sh(script: "git rev-parse HEAD", returnStdout: true, ).trim()
                     VERSION = sh(script: "python3 -c 'import version; print(version.__version__)'", returnStdout: true).trim()
                     if (fileExists('ci-build.sh')) {
-                        sh 'bash ./ci-build.sh master'
+                        sh 'bash ./ci-build.sh PREPROD'
                     } else {
                         echo 'ci-build.sh not found - skipping this stage'
                     }

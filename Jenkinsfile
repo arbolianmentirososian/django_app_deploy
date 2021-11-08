@@ -48,7 +48,7 @@ pipeline {
                         else
                             pdoc --pdf --force --output-dir docs/ src/app > docs/result.md
                         fi
-                        pandoc -f markdown -t html5 --metadata title="Math_Library" --template=docs/templates/template.html5 --toc docs/result.md -o docs/index.html
+                        pandoc -f markdown -t html5 --metadata title="Django_App_Deploy" --template=docs/templates/template.html5 --toc docs/result.md -o docs/index.html
                     """
                 }
                 publishHTML target: [
@@ -80,4 +80,5 @@ pipeline {
                 }
             }
         }
+    }
 }

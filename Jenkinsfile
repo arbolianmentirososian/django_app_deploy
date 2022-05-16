@@ -65,20 +65,22 @@ pipeline {
         }
         stage('Static analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh """
-                        ${tool("SonarQubeScanner")}/bin/sonar-scanner \
-                            -D sonar.projectKey="Math_Library" \
-                            -D sonar.projectName="Math_Library" \
-                            -D sonar.projectVersion=${VERSION} \
-                            -D sonar.sources=src/ \
-                            -D sonar.tests=test/ \
-                            -D sonar.python.coverage.reportPaths=test/coverage.xml \
-                            -D sonar.python.xunit.reportPath=test/result.xml
-                    """
+                lock('lock_test') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh """
+                            ${tool("SonarQubeScanner")}/bin/sonar-scanner \
+                                -D sonar.projectKey="Math_Library" \
+                                -D sonar.projectName="Math_Library" \
+                                -D sonar.projectVersion=${VERSION} \
+                                -D sonar.sources=src/ \
+                                -D sonar.tests=test/ \
+                                -D sonar.python.coverage.reportPaths=test/coverage.xml \
+                                -D sonar.python.xunit.reportPath=test/result.xml
+                        """
+                    }
                 }
                 timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: false
+                waitForQualityGate abortPipeline: false
                 }
             }
         }

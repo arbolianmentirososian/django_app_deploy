@@ -5,8 +5,11 @@ RUN useradd -m python
 WORKDIR /opt/django_app_deploy
 COPY requirements.txt . 
 
-RUN pip install --trusted-host devops-nexus-pl.ncplus.pl -i https://pip:Nex8sCpl8s@devops-nexus-pl.ncplus.pl/repository/pypi-proxy/simple --no-cache-dir -r requirements.txt
-
+RUN pip install --trusted-host devops-nexus-pl.ncplus.pl \
+    --index-url https://pip:Nex8sCpl8s@devops-nexus-pl.ncplus.pl/repository/pypi-proxy/simple \
+    --extra-index-url https://pip:Nex8sCpl8s@devops-nexus-pl.ncplus.pl/repository/python-releases/simple \
+    --no-cache-dir -r requirements.txt
+   
 COPY . .
 
 RUN chown -R python:python /opt/django_app_deploy

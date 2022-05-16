@@ -23,14 +23,16 @@ pipeline {
         }
         stage('Unit Tests') {
             steps {
-                script {
-                    sh """#!/bin/bash
-                        python3 -m venv venv
-                        source ./venv/bin/activate
-                        pip install -r requirements.txt
-                        pip install pytest pytest-cov
-                        pytest --cov=src/ --cov-report=xml:test/coverage.xml --junitxml=test/results.xml
-                    """
+                lock('lock_test') {
+                    script {
+                        sh """#!/bin/bash
+                            python3 -m venv venv
+                            source ./venv/bin/activate
+                            pip install -r requirements.txt
+                            pip install pytest pytest-cov
+                            pytest --cov=src/ --cov-report=xml:test/coverage.xml --junitxml=test/results.xml
+                        """
+                    }
                 }
                 junit(testResults: 'test/results.xml', allowEmptyResults: true)
             }
